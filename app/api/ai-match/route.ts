@@ -37,23 +37,26 @@ const consultants = [
       'scaling',
     ],
   },
-  // أضف هنا باقي المستشارين بنفس الصيغة
+  // أضف باقي المستشارين هنا لو تريد
 ];
 
 // POST /api/ai-match
 export async function POST(request: Request) {
   try {
     const { keywords = [], lang } = await request.json();
-    const matches = consultants.filter(c =>
+    const matches = consultants.filter((c) =>
       c.lang === lang &&
-      c.keywords.some(kw =>
+      c.keywords.some((kw) =>
         keywords.map((k: string) => k.toLowerCase()).includes(kw.toLowerCase())
       )
     );
     return NextResponse.json({ success: true, data: matches });
   } catch (e: any) {
     console.error('Error in ai-match POST:', e);
-    return NextResponse.json({ success: false, error: e.message }, { status: 500 });
+    return NextResponse.json(
+      { success: false, error: e.message || 'Unknown error' },
+      { status: 500 }
+    );
   }
 }
 
