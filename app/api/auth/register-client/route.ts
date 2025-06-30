@@ -1,21 +1,25 @@
+// app/api/auth/register-client/route.ts
 import { NextResponse } from 'next/server';
-import fetch from 'node-fetch';
-import bcrypt from 'bcrypt';
 
-export async function POST(req: Request) {
-  const { name, email, password, phone, recaptchaToken } = await req.json();
+type RecaptchaResponse = {
+  success: boolean;
+  challenge_ts?: string;
+  hostname?: string;
+  // يمكنك إضافة الحقول الأخرى التي تعيدها reCAPTCHA مثل:
+//   'error-codes'?: string[];
+};
 
-  // تحقق من reCAPTCHA
-  const secret = process.env.RECAPTCHA_SECRET_KEY!;
+export async function POST(request: Request) {
+  const { token } = await request.json();
+
   const verifyRes = await fetch(
-    `https://www.google.com/recaptcha/api/siteverify`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `secret=${secret}&response=${recaptchaToken}`,
-    }
+    `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${token}`,
+    { method: 'POST' }
   );
-  const verifyData = await verifyRes.json();
+
+  // هنا نخبر TypeScript أن ما يرد علينا هو RecaptchaResponse
+  const verifyData: RecaptchaResponse = await verifyRes.json();
+
   if (!verifyData.success) {
     return NextResponse.json(
       { message: 'فشل التحقق من reCAPTCHA' },
@@ -23,16 +27,6 @@ export async function POST(req: Request) {
     );
   }
 
-  // تشفير كلمة المرور
-  const hashed = await bcrypt.hash(password, 10);
-
-  // TODO: حفظ المستخدم في قاعدة البيانات (Prisma مثالياً)
-  // await prisma.user.create({ data: { name, email, password: hashed, phone, role: 'CLIENT' } });
-
-  // إرسال بريد التحقق (يمكن إضافة خدمة nodemailer/Zoho)
-  // await sendVerificationEmail(email, token...)
-
-  return NextResponse.json({
-    message: 'تم التسجيل بنجاح، تحقق من بريدك للتفعيل',
-  });
+  // بقية منطق التسجيل...
+  return NextResponse.json({ success: true });
 }
