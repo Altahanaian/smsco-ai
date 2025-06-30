@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Smart AI-powered platform by the Saudi Management Services Company - Consulting and Training"
+    />
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <title>SMSCO Platform | Saudi Management Services Co.</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+      body {
+        margin: 0;
+        font-family: 'Cairo', 'Roboto', sans-serif;
+        background: linear-gradient(to bottom right, #f0f4f8, #ffffff);
+        color: #333;
+        direction: rtl;
+      }
+
+      [lang='en'] body {
+        direction: ltr;
+        font-family: 'Roboto', sans-serif;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 2rem;
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      header img {
+        height: 64px;
+      }
+      header h1 {
+        font-size: 1.5rem;
+        color: #6a1b9a;
+      }
+      main {
+        padding: 4rem 2rem;
+        text-align: center;
+      }
+      main h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #4a148c;
+      }
+      main p {
+        font-size: 1.25rem;
+        max-width: 700px;
+        margin: auto;
+        color: #555;
+      }
+      .cta-button {
+        margin-top: 2rem;
+        padding: 1rem 2rem;
+        background-color: #6a1b9a;
+        color: #fff;
+        font-size: 1.1rem;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .cta-button:hover {
+        background-color: #4a148c;
+      }
+      footer {
+        margin-top: 4rem;
+        padding: 2rem;
+        text-align: center;
+        background: #eee;
+        font-size: 0.9rem;
+        color: #777;
+      }
+    </style>
+    <script>
+      const lang = navigator.language || navigator.userLanguage;
+      if (lang.startsWith('en')) {
+        document.documentElement.lang = 'en';
+        document.documentElement.dir = 'ltr';
+      } else {
+        document.documentElement.lang = 'ar';
+        document.documentElement.dir = 'rtl';
+      }
+    </script>
+  </head>
+  <body>
+    <header>
+      <img src="/android-chrome-192x192.png" alt="SMSCO Logo" />
+      <h1 lang="ar">الشركة السعودية للخدمات الإدارية | SMSCO.AI</h1>
+      <h1 lang="en" style="display: none">
+        Saudi Management Services Co. | SMSCO.AI
+      </h1>
+    </header>
+    <main>
+      <h2 lang="ar">مرحبًا بكم في منصتنا الذكية</h2>
+      <h2 lang="en" style="display: none">Welcome to Our Smart Platform</h2>
+      <p lang="ar">
+        منصة SMSCO تقدم حلولاً ذكية وشاملة في الاستشارات والتدريب عبر الذكاء
+        الاصطناعي. نساعدك على الوصول إلى الاستشارة المناسبة والتدريب المتقدم في
+        جميع المجالات.
+      </p>
+      <p lang="en" style="display: none">
+        SMSCO platform offers smart and comprehensive AI-powered consulting and
+        training services. We help you reach the right expertise and advanced
+        training in all fields.
+      </p>
+      <button class="cta-button" lang="ar">ابدأ الآن</button>
+      <button class="cta-button" lang="en" style="display: none">
+        Get Started
+      </button>
+    </main>
+    <footer>
+      <span lang="ar"
+        >&copy; 2025 جميع الحقوق محفوظة لـ SMSCO.AI - الشركة السعودية للخدمات
+        الإدارية</span
+      >
+      <span lang="en" style="display: none"
+        >&copy; 2025 All rights reserved to SMSCO.AI - Saudi Management Services
+        Co.</span
+      >
+    </footer>
+    <script>
+      const userLang = navigator.language || navigator.userLanguage;
+      const arElements = document.querySelectorAll('[lang="ar"]');
+      const enElements = document.querySelectorAll('[lang="en"]');
+      if (userLang.startsWith('en')) {
+        arElements.forEach((el) => (el.style.display = 'none'));
+        enElements.forEach((el) => (el.style.display = ''));
+      }
+    </script>
+  </body>
+</html>

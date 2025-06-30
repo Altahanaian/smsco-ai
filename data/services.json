@@ -1,0 +1,20 @@
+[
+  {
+    "code": "general_management",
+    "name_ar": "الإدارة العامة",
+    "name_en": "General Management",
+    "related": ["financial_management", "marketing_management"]
+  },
+  {
+    "code": "financial_management",
+    "name_ar": "الإدارة المالية",
+    "name_en": "Financial Management",
+    "related": ["project_management"]
+  },
+  {
+    "code": "marketing_management",
+    "name_ar": "إدارة التسويق",
+    "name_en": "Marketing Management",
+    "related": ["general_management"]
+  }
+]

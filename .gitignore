@@ -1,0 +1,43 @@
+# Node.js
+node_modules/
+
+# Next.js
+.next/
+out/
+
+# Local env files
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env
+
+# Lock files & logs
+*.log
+yarn-error.log*
+
+# Vercel
+.vercel/
+.vercel_build_output/
+
+# Cypress
+cypress/videos/
+cypress/screenshots/
+cypress/test-results/
+
+# Lighthouse CI
+.lighthouseci/
+
+# Coverage
+coverage/
+
+# Prisma
+prisma/dev.db
+prisma/migrations/
+
+# IDE
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
