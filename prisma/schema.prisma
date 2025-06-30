@@ -1,3 +1,5 @@
+// prisma/schema.prisma
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -8,7 +10,20 @@ datasource db {
 }
 
 model Signup {
-  id    Int    @id @default(autoincrement())
-  email String
+  id        Int      @id @default(autoincrement())
+  email     String
   createdAt DateTime @default(now())
 }
+
+ model Provider {
+   id         Int      @id @default(autoincrement())
+   name       String
+   field      String
+   rating     Float
+   lang       String
+   img        String?
+-  keywords   String[]
++  keywords   Json
+   isActive   Boolean  @default(true)
+   createdAt  DateTime @default(now())
+ }
