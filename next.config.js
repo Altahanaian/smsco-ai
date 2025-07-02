@@ -1,28 +1,17 @@
 // next.config.js
-
-// استيراد البلجن وتهيئة المسار إلى next-intl.config.js
 const nextIntlPlugin = require('next-intl/plugin')('./next-intl.config.js')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 1) تجاوز أخطاء ESLint أثناء البناء
-  eslint: {
-    ignoreDuringBuilds: true,
-  },
+  // تجاهل أخطاء ESLint عند البناء
+  eslint: { ignoreDuringBuilds: true },
 
-  // 2) الإعدادات الحالية للـ i18n (مطابقة لملف next-intl.config.js)
-  i18n: {
-    locales: ['en', 'ar'],
-    defaultLocale: 'en',
-    localeDetection: false,
-  },
-
-  // 3) إعدادات الصور
+  // إعدادات الصور
   images: {
     domains: ['yourdomain.com'],
   },
 
-  // 4) رؤوس الأمان
+  // رؤوس الأمان
   async headers() {
     return [
       {
@@ -37,8 +26,8 @@ const nextConfig = {
     ]
   },
 
-  // 5) أي إعدادات أخرى عندك…
+  // أي إعدادات أخرى — لكن **احذف** تمامًا هذا الجزء:
+  // i18n: {...}
 }
 
-// غلّف التهيئة بالبلجن قبل التصدير
 module.exports = nextIntlPlugin(nextConfig)
