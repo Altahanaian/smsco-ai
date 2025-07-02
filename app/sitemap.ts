@@ -1,42 +1,29 @@
-// app/sitemap.ts
-import { MetadataRoute } from 'next'
+import { NextRequest } from 'next/server';
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.smsco.ai'
-  const now = new Date().toISOString()
-
-  // صفحة الخدمات
-  const entries: MetadataRoute.Sitemap = [
-    {
-      url: `${baseUrl}/services`,
-      lastModified: now,
-    },
-  ]
-
-  // إضافة روابط لكل خدمة ضمن التصنيف (لما يتم إنشاؤها لاحقًا)
-  [
-    '/services/ai-consultation',
-    '/services/digital-training',
-    '/services/smart-match',
-    '/services/tamheer-program',
-    '/services/performance-evaluation',
-    '/services/cv-cover-letter',
-    '/services/event-booking',
-    '/services/event-management',
-    '/services/ai-marketing',
-    '/services/chatbot',
-    '/services/payment-and-billing',
-    '/services/analytics-reports',
-    '/services/e-signature',
+export async function GET(request: NextRequest) {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL as string;
+  const now = new Date().toISOString();
+  const paths = [
     '/services/internal-arbitration',
     '/services/data-encryption',
-    '/services/fraud-prevention',
-  ].forEach((path) =>
-    entries.push({
-      url: `${baseUrl}${path}`,
-      lastModified: now,
-    })
-  )
+    '/services/fraud-prevention'
+  ];
 
-  return entries
+  const sitemapEntries = paths
+    .map((path) => `
+      <url>
+        <loc>${baseUrl}${path}</loc>
+        <lastmod>${now}</lastmod>
+      </url>
+    `)
+    .join('');
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    ${sitemapEntries}
+  </urlset>`;
+
+  return new Response(xml, {
+    headers: { 'Content-Type': 'application/xml' }
+  });
 }
