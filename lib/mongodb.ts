@@ -1,15 +1,24 @@
-import mongoose from 'mongoose';
+// lib/mongodb.ts
+import mongoose from 'mongoose'
 
-const MONGODB_URI = process.env.MONGODB_URI as string;
+// لن نخّر الخطأ إلا عند محاولة الاتصال فعلياً
+const MONGODB_URI = process.env.MONGODB_URI as string
 
-if (!MONGODB_URI) {
-  throw new Error('الرجاء إضافة MONGODB_URI في ملف .env');
+// كاش للاتصال المجدد
+let cached = (global as any).mongoose || {
+  conn: null as mongoose.Mongoose | null,
+  promise: null as Promise<mongoose.Mongoose> | null,
 }
 
-let cached = (global as any).mongoose || { conn: null, promise: null };
+export async function connectToDatabase(): Promise<mongoose.Mongoose> {
+  // الآن نتحقّق من وجود URI داخل الدالة
+  if (!MONGODB_URI) {
+    throw new Error('الرجاء إضافة MONGODB_URI في ملف .env')
+  }
 
-export async function connectToDatabase() {
-  if (cached.conn) return cached.conn;
+  if (cached.conn) {
+    return cached.conn
+  }
 
   if (!cached.promise) {
     cached.promise = mongoose
@@ -17,11 +26,10 @@ export async function connectToDatabase() {
         dbName: 'smsco',
         bufferCommands: false,
       })
-      .then((mongoose) => {
-        return mongoose;
-      });
+      .then((mongoose) => mongoose)
   }
 
-  cached.conn = await cached.promise;
-  return cached.conn;
+  cached.conn = await cached.promise
+  ;(global as any).mongoose = cached
+  return cached.conn
 }

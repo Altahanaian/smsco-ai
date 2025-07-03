@@ -1,88 +1,74 @@
-'use client';
-import { useEffect, useState } from 'react';
-import Link from 'next/link';
+// app/services/page.tsx
+import React from 'react'
+import Link from 'next/link'
 
-type Service = {
-  id: string;
-  title: { en: string; ar: string };
-  desc: { en: string; ar: string };
-  price: number;
-};
+interface ServiceCategory {
+  category: string
+  items: { title: string; href: string }[]
+}
 
-const services: Service[] = [
+const services: ServiceCategory[] = [
   {
-    id: 'ai-data-analysis',
-    title: { en: 'AI Data Analysis', ar: 'تحليل البيانات الذكي' },
-    desc: {
-      en: 'Extract insights from your data with advanced AI algorithms.',
-      ar: 'استخلاص رؤى وتحليلات من بياناتك عبر خوارزميات AI متقدمة',
-    },
-    price: 500,
+    category: 'الخدمات الأساسية',
+    items: [
+      { title: 'الاستشارات الذكية',     href: '/services/ai-consultation' },
+      { title: 'التدريب الرقمي',        href: '/services/digital-training' },
+      { title: 'المطابقة الذكية',       href: '/services/smart-match' },
+    ],
   },
-  // يمكن إضافة خدمات أخرى هنا...
-];
+  {
+    category: 'الخدمات الإدارية والمهنية',
+    items: [
+      { title: 'خدمة تمهير للتوظيف والتدريب', href: '/services/tamheer-program' },
+      { title: 'تقييم الأداء المهني',           href: '/services/performance-evaluation' },
+      { title: 'إعداد السير الذاتية ورسائل التوظيف', href: '/services/cv-cover-letter' },
+    ],
+  },
+  {
+    category: 'الفعاليات والمؤتمرات',
+    items: [
+      { title: 'حجز المؤتمرات والفعاليات',  href: '/services/event-booking' },
+      { title: 'إدارة الأحداث وإصدار الشهادات', href: '/services/event-management' },
+    ],
+  },
+  {
+    category: 'الخدمات الداعمة والتسويق الذكي',
+    items: [
+      { title: 'التسويق الذكي باستخدام AI',    href: '/services/ai-marketing' },
+      { title: 'روبوت الدردشة الذكي',         href: '/services/chatbot' },
+      { title: 'نظام الدفع الإلكتروني والفوترة', href: '/services/payment-and-billing' },
+      { title: 'تحليلات وتقارير الأداء',       href: '/services/analytics-reports' },
+    ],
+  },
+  {
+    category: 'خدمات الأمان وحفظ الحقوق',
+    items: [
+      { title: 'التوقيع الإلكتروني للعقود', href: '/services/e-signature' },
+      { title: 'نظام التحكيم الداخلي',       href: '/services/internal-arbitration' },
+      { title: 'تشفير البيانات الحساسة',      href: '/services/data-encryption' },
+      { title: 'منع التلاعب والتواصل الخارجي', href: '/services/fraud-prevention' },
+    ],
+  },
+]
 
 export default function ServicesPage() {
-  const [lang, setLang] = useState<'en' | 'ar'>('ar');
-  useEffect(
-    () => setLang(navigator.language.startsWith('en') ? 'en' : 'ar'),
-    []
-  );
-  const isEn = lang === 'en';
   return (
-    <div
-      dir={isEn ? 'ltr' : 'rtl'}
-      lang={lang}
-      style={{
-        padding: '2rem',
-        fontFamily: isEn ? 'Roboto, sans-serif' : 'Cairo, sans-serif',
-      }}
-    >
-      <h1 style={{ fontSize: '2rem', color: '#4a148c' }}>
-        {isEn ? 'Our Smart Services' : 'خدماتنا الذكية'}
-      </h1>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit,minmax(250px,1fr))',
-          gap: '1.5rem',
-          marginTop: '1.5rem',
-        }}
-      >
-        {services.map((s) => (
-          <div
-            key={s.id}
-            style={{
-              border: '1px solid #ddd',
-              borderRadius: '8px',
-              padding: '1rem',
-              textAlign: 'center',
-            }}
-          >
-            <h2 style={{ marginBottom: '0.5rem' }}>
-              {isEn ? s.title.en : s.title.ar}
-            </h2>
-            <p style={{ color: '#555', marginBottom: '1rem' }}>
-              {isEn ? s.desc.en : s.desc.ar}
-            </p>
-            <p style={{ fontWeight: 'bold', marginBottom: '1rem' }}>
-              {s.price} {isEn ? 'SAR' : 'ريال'}
-            </p>
-            <Link
-              href={`/checkout/${s.id}`}
-              style={{
-                padding: '0.5rem 1rem',
-                backgroundColor: '#6a1b9a',
-                color: '#fff',
-                borderRadius: '5px',
-                textDecoration: 'none',
-              }}
-            >
-              {isEn ? 'Buy Now' : 'شراء الآن'}
-            </Link>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+    <main className="p-8 max-w-4xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6 text-center">خدمات منصة سمسكو الذكية</h1>
+      {services.map((cat) => (
+        <section key={cat.category} className="mb-8">
+          <h2 className="text-2xl font-semibold mb-4">{cat.category}</h2>
+          <ul className="list-disc list-inside space-y-2">
+            {cat.items.map((svc) => (
+              <li key={svc.href}>
+                <Link href={svc.href} className="text-blue-600 hover:underline">
+                  {svc.title}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+    </main>
+  )
 }

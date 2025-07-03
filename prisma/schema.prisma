@@ -1,29 +1,17 @@
-// prisma/schema.prisma
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql" // أو "mysql" حسبك
+  url      = env("DATABASE_URL")
 }
 
-model Signup {
-  id        Int      @id @default(autoincrement())
-  email     String
-  createdAt DateTime @default(now())
+model Provider {
+  id         String   @id @default(cuid())
+  name       String
+  lang       String
+  img        String?
+  keywords   Json
+  isActive   Boolean  @default(true)
 }
-
- model Provider {
-   id         Int      @id @default(autoincrement())
-   name       String
-   field      String
-   rating     Float
-   lang       String
-   img        String?
--  keywords   String[]
-+  keywords   Json
-   isActive   Boolean  @default(true)
-   createdAt  DateTime @default(now())
- }

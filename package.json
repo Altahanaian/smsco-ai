@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "postinstall": "prisma generate",
     "build": "next build",
+    "vercel-build": "rm -rf .next && npm run build",
     "start": "next start",
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx",
     "format": "prettier --write ."
@@ -23,7 +25,6 @@
     "next-intl": "^4.3.1",
     "node-fetch": "^3.3.2",
     "nodemailer": "^6.10.1",
-    "prisma": "^6.10.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-google-recaptcha": "^3.1.0",
@@ -40,7 +41,9 @@
     "@tailwindcss/typography": "^0.5.16",
     "@testing-library/react": "^13.0.0",
     "@types/node": "^22.15.21",
+    "@types/nodemailer": "^6.4.17",
     "@types/react": "^19.1.5",
+    "@types/react-google-recaptcha": "^2.1.9",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "autoprefixer": "^10.4.21",
     "cypress": "^12.0.0",
@@ -54,6 +57,7 @@
     "postcss-import": "^16.1.1",
     "postcss-nesting": "^13.0.2",
     "prettier": "^3.6.1",
+    "prisma": "^6.10.1",
     "tailwindcss": "^4.1.11",
     "tailwindcss-rtl": "^0.9.0",
     "typescript": "^5.1.6"

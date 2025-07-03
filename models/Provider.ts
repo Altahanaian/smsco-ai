@@ -1,16 +1,24 @@
-import mongoose from 'mongoose';
+// models/Provider.ts
+import mongoose, { Schema, Document, Model } from 'mongoose'
 
-const ProviderSchema = new mongoose.Schema({
-  name: String,
-  email: { type: String, unique: true },
-  password: String,
-  phone: String,
-  field: String,
-  lang: String,
-  bio: String,
-  linkedin: String,
-  createdAt: { type: Date, default: Date.now },
-});
+export interface Provider extends Document {
+  name: string
+  img?: string
+  keywords: string[]
+  isActive: boolean
+  lang: string
+  // أي حقول إضافية…
+}
 
-export default mongoose.models.Provider ||
-  mongoose.model('Provider', ProviderSchema);
+const providerSchema = new Schema<Provider>({
+  name: { type: String, required: true },
+  img: String,
+  keywords: { type: [String], default: [] },
+  isActive: { type: Boolean, default: true },
+  lang: { type: String, required: true },
+})
+
+const ProviderModel: Model<Provider> =
+  mongoose.models.Provider || mongoose.model<Provider>('Provider', providerSchema)
+
+export default ProviderModel
