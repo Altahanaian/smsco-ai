@@ -1,21 +1,18 @@
 // next.config.js
 
-// 1) استدعاء بلجن next-intl مع مسار ملف الإعدادات
-const nextIntl = require('next-intl/plugin')('./next-intl.config.js');
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 2) تجاهل أخطاء ESLint أثناء البناء
+  // 1) تجاهل أخطاء ESLint أثناء البناء
   eslint: {
     ignoreDuringBuilds: true,
   },
 
-  // 3) إعدادات الصور (إذا كنت تستخدم الصور)
+  // 2) إعدادات الصور (إذا كنت تستخدم الصور)
   images: {
     domains: ['yourdomain.com'],
   },
 
-  // 4) رؤوس الأمان – يجب أن تُعيد مصفوفة
+  // 3) رؤوس الأمان
   async headers() {
     return [
       {
@@ -42,7 +39,10 @@ const nextConfig = {
     ];
   },
 
-  // 5) أي إعدادات Next.js إضافية أخرى عندك …
+  // 4) أي إعدادات Next.js إضافية أخرى عندك …
 };
 
-module.exports = nextIntl(nextConfig);
+// استدعاء البلجن من next-intl/plugin بدون باراميتر:
+const withNextIntl = require('next-intl/plugin')();
+
+module.exports = withNextIntl(nextConfig);
