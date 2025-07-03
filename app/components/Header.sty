@@ -1,0 +1,13 @@
+'use client'
+import { useTranslations } from 'next-intl'
+
+export default function Header() {
+  const t = useTranslations('common')
+  return (
+    <nav>
+      <a href="/">{t('home')}</a>
+      <a href="/services">{t('services')}</a>
+      {/* وهكذا */}
+    </nav>
+  )
+}

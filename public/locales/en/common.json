@@ -1,7 +1,7 @@
+// locales/en/landing.json
 {
-  "home": "Home",
-  "services": "Our Smart Services",
-  "dashboard": "Dashboard",
-  "login": "Login",
-  "register": "Register"
+  "title": "SMSCO Smart Platform",
+  "subtitle": "AI-powered Consulting & Training",
+  "getStarted": "Get Started",
+  "explore": "Explore Platform"
 }
